@@ -15,6 +15,7 @@ object LanguageCompilerStatic {
     "graphviz" -> GraphvizClassCompiler,
     "go" -> GoCompiler,
     "html" -> HtmlClassCompiler,
+    "asciidoc" -> AsciidocClassCompiler,
     "java" -> JavaCompiler,
     "javascript" -> JavaScriptCompiler,
     "lua" -> LuaCompiler,

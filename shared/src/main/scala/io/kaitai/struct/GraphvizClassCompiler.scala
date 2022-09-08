@@ -8,6 +8,7 @@ import io.kaitai.struct.languages.components.{LanguageCompiler, LanguageCompiler
 import io.kaitai.struct.precompile.CalculateSeqSizes
 import io.kaitai.struct.translators.RubyTranslator
 
+import scala.None.getOrElse
 import scala.collection.mutable.ListBuffer
 
 class GraphvizClassCompiler(classSpecs: ClassSpecs, topClass: ClassSpec) extends AbstractCompiler {
@@ -29,6 +30,7 @@ class GraphvizClassCompiler(classSpecs: ClassSpecs, topClass: ClassSpec) extends
     out.inc
     out.puts("rankdir=LR;")
     out.puts("node [shape=plaintext];")
+    out.puts("tooltip=\"" + topClass.doc.summary.getOrElse("") + "\";")
 
     compileClass(topClass)
 
@@ -55,6 +57,7 @@ class GraphvizClassCompiler(classSpecs: ClassSpecs, topClass: ClassSpec) extends
     out.puts(s"subgraph cluster__${type2class(className)} {")
     out.inc
     out.puts("label=\"" + type2display(className) + "\";")
+    out.puts("tooltip=\"" + curClass.doc.summary.getOrElse("") + "\";")
     out.puts("graph[style=dotted];")
     out.puts
 
@@ -148,12 +151,20 @@ class GraphvizClassCompiler(classSpecs: ClassSpecs, topClass: ClassSpec) extends
         dataTypeName(dataType)
     }
 
+    val contentStr = attr.valid match {
+      case Some(ValidationEq(contents: Ast.expr.List)) =>
+        "={" + contents.elts.map(_.evaluateIntConst.getOrElse("").formatted("0x%02X")).mkString(",")  + "}"
+      case _ => ""
+    }
+
+    val tooltipStr = "title=\"" + attr.doc.summary.getOrElse("") + "\" href=\"\""
+
     out.puts("<TR>" +
-      "<TD PORT=\"" + name + "_pos\">" + pos.getOrElse("...") + "</TD>" +
-      "<TD PORT=\"" + name + "_size\">" + sizeStr + "</TD>" +
-      s"<TD>$dataTypeStr</TD>" +
-      "<TD PORT=\"" + name + "_type\">" + name + "</TD>" +
-      "</TR>")
+            s"""<TD $tooltipStr PORT="${name}_pos">${pos.getOrElse("...")}</TD>""" +
+            s"""<TD $tooltipStr PORT="${name}_size">$sizeStr</TD>""" +
+            s"""<TD $tooltipStr >$dataTypeStr$contentStr</TD>""" +
+            s"""<TD $tooltipStr PORT="${name}_type">$name</TD>""" +
+            "</TR>")
 
     // Add user type links
     dataType match {
@@ -412,7 +423,6 @@ object GraphvizClassCompiler extends LanguageCompilerStatic {
     dataType match {
       case rt: ReadableType => rt.apiCall(None) // FIXME
       case ut: UserType => type2display(ut.name)
-      //case FixedBytesType(contents, _) => contents.map(_.formatted("%02X")).mkString(" ")
       case BytesTerminatedType(terminator, include, consume, eosError, _) =>
         val args = ListBuffer[String]()
         if (terminator != 0)
@@ -424,7 +434,7 @@ object GraphvizClassCompiler extends LanguageCompilerStatic {
         if (!eosError)
           args += "ignore EOS"
         args.mkString(", ")
-      case _: BytesType => ""
+      case _: BytesType => "bytes"
       case StrFromBytesType(basedOn, encoding) =>
         val bytesStr = dataTypeName(basedOn)
         val comma = if (bytesStr.isEmpty) "" else ", "

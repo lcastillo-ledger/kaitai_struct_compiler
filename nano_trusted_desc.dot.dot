@@ -1,0 +1,188 @@
+digraph {
+	graph [bb="0,0,961,642",
+		rankdir=LR,
+		tooltip="A generic binary format for trusted descriptors (an info trusted by the nano signed by a Ledger key)
+"
+	];
+	node [label="\N",
+		shape=plaintext
+	];
+	subgraph cluster__nano_trusted_desc {
+		graph [bb="8,8,953,634",
+			label=NanoTrustedDesc,
+			lheight=0.21,
+			lp="480.5,622.5",
+			lwidth=1.78,
+			style=dotted,
+			tooltip="A generic binary format for trusted descriptors (an info trusted by the nano signed by a Ledger key)
+"
+		];
+		subgraph cluster__nft_body {
+			graph [bb="671,233,928,404",
+				label="NanoTrustedDesc::NftBody",
+				lheight=0.21,
+				lp="799.5,392.5",
+				lwidth=2.72,
+				style=dotted,
+				tooltip="An NFT collection descriptor"
+			];
+			nft_body__seq	[height=1.5694,
+				label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD title="Length of the name field" href="" PORT="len_name_pos">0</TD><TD title="Length of the name field" href="" PORT="len_name_size">1</TD><TD title="Length of the name field" href="" >u1</TD><TD title="Length of the name field" href="" PORT="len_name_type">len_name</TD></TR>
+				<TR><TD title="UTF-8 encoded name of the collection corresponding to the address" href="" PORT="name_pos">1</TD><TD title="UTF-8 encoded name of the collection corresponding to the address" href="" PORT="name_size">len_name</TD><TD title="UTF-8 encoded name of the collection corresponding to the address" href="" >bytes</TD><TD title="UTF-8 encoded name of the collection corresponding to the address" href="" PORT="name_type">name</TD></TR>
+				<TR><TD title="Blockchain smartcontract address associated with this collection" href="" PORT="address_pos">...</TD><TD title="Blockchain smartcontract address associated with this collection" href="" PORT="address_size">20</TD><TD title="Blockchain smartcontract address associated with this collection" href="" >bytes</TD><TD title="Blockchain smartcontract address associated with this collection" href="" PORT="address_type">address</TD></TR>
+				<TR><TD title="Blockchain id, as specified in XXX" href="" PORT="chain_id_pos">...</TD><TD title="Blockchain id, as specified in XXX" href="" PORT="chain_id_size">8</TD><TD title="Blockchain id, as specified in XXX" href="" >bytes</TD><TD title="Blockchain id, as specified in XXX" href="" PORT="chain_id_type">chain_id</TD></TR>
+			</TABLE>>,
+				pos="799.5,298",
+				width=3.3472];
+			nft_body__seq:len_name_type -> nft_body__seq:name_size	[color="#404040",
+				pos="e,727.83,308.08 903.17,329.02 953.52,350.94 937.34,372.5 815.5,372.5 701.28,372.5 679.91,339.01 719.18,313.14"];
+		}
+		subgraph cluster__challenge {
+			graph [bb="319,365,634,494",
+				label="NanoTrustedDesc::Challenge",
+				lheight=0.21,
+				lp="476.5,482.5",
+				lwidth=2.89,
+				style=dotted,
+				tooltip="An optional challenge enabling proving freshness of the descriptor"
+			];
+			challenge__seq	[height=0.98611,
+				label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD title="length of the challenge, when no challenge is present use length of 0x00" href="" PORT="len_challenge_pos">0</TD><TD title="length of the challenge, when no challenge is present use length of 0x00" href="" PORT="len_challenge_size">1</TD><TD title="length of the challenge, when no challenge is present use length of 0x00" href="" >u1</TD><TD title="length of the challenge, when no challenge is present use length of 0x00" href="" PORT="len_challenge_type">len_challenge</TD></TR>
+				<TR><TD title="challenge as an array of raw bytes" href="" PORT="challenge_pos">1</TD><TD title="challenge as an array of raw bytes" href="" PORT="challenge_size">len_challenge</TD><TD title="challenge as an array of raw bytes" href="" >bytes</TD><TD title="challenge as an array of raw bytes" href="" PORT="challenge_type">challenge</TD></TR>
+			</TABLE>>,
+				pos="476.5,409",
+				width=4.1528];
+			challenge__seq:len_challenge_type -> challenge__seq:challenge_size	[color="#404040",
+				pos="e,385.64,398.07 602.66,419.12 642.98,437.83 620.06,462.5 492.5,462.5 371.32,462.5 344.57,427.48 376.77,403.58"];
+		}
+		subgraph cluster__plugin_body {
+			graph [bb="671,412,928,603",
+				label="NanoTrustedDesc::PluginBody",
+				lheight=0.21,
+				lp="799.5,591.5",
+				lwidth=3.04,
+				style=dotted,
+				tooltip="A plugin descriptor"
+			];
+			plugin_body__seq	[height=1.8611,
+				label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD title="Length of the name field" href="" PORT="len_name_pos">0</TD><TD title="Length of the name field" href="" PORT="len_name_size">1</TD><TD title="Length of the name field" href="" >u1</TD><TD title="Length of the name field" href="" PORT="len_name_type">len_name</TD></TR>
+				<TR><TD title="ASCII encoded name of the plugin to use" href="" PORT="name_pos">1</TD><TD title="ASCII encoded name of the plugin to use" href="" PORT="name_size">len_name</TD><TD title="ASCII encoded name of the plugin to use" href="" >bytes</TD><TD title="ASCII encoded name of the plugin to use" href="" PORT="name_type">name</TD></TR>
+				<TR><TD title="Blockchain smartcontract address associated with this plugin" href="" PORT="address_pos">...</TD><TD title="Blockchain smartcontract address associated with this plugin" href="" PORT="address_size">20</TD><TD title="Blockchain smartcontract address associated with this plugin" href="" >bytes</TD><TD title="Blockchain smartcontract address associated with this plugin" href="" PORT="address_type">address</TD></TR>
+				<TR><TD title="function selector in the smartcontract associated with this plugin" href="" PORT="selector_pos">...</TD><TD title="function selector in the smartcontract associated with this plugin" href="" PORT="selector_size">4</TD><TD title="function selector in the smartcontract associated with this plugin" href="" >bytes</TD><TD title="function selector in the smartcontract associated with this plugin" href="" PORT="selector_type">selector</TD></TR>
+				<TR><TD title="Blockchain id, as specified in XXX" href="" PORT="chain_id_pos">...</TD><TD title="Blockchain id, as specified in XXX" href="" PORT="chain_id_size">8</TD><TD title="Blockchain id, as specified in XXX" href="" >bytes</TD><TD title="Blockchain id, as specified in XXX" href="" PORT="chain_id_type">chain_id</TD></TR>
+			</TABLE>>,
+				pos="799.5,487",
+				width=3.3472];
+			plugin_body__seq:len_name_type -> plugin_body__seq:name_size	[color="#404040",
+				pos="e,731.69,508.02 901.1,529.09 953.94,552.95 938.99,572 815.5,572 697.96,572 678.75,540.04 722.75,513"];
+		}
+		subgraph cluster__signature {
+			graph [bb="365,126,589,255",
+				label="NanoTrustedDesc::Signature",
+				lheight=0.21,
+				lp="477,243.5",
+				lwidth=2.89,
+				style=dotted,
+				tooltip="a signature container"
+			];
+			signature__seq	[height=0.98611,
+				label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD title="Signature length" href="" PORT="len_sig_pos">0</TD><TD title="Signature length" href="" PORT="len_sig_size">1</TD><TD title="Signature length" href="" >u1</TD><TD title="Signature length" href="" PORT="len_sig_type">len_sig</TD></TR>
+				<TR><TD title="DER encoded signature.
+Signature is computed over serialized fields [type , version , body , key_id].
+Signature key and algorithm is determined by [key_id] field and corresponding certificate.
+" href="" PORT="sig_pos">1</TD><TD title="DER encoded signature.
+Signature is computed over serialized fields [type , version , body , key_id].
+Signature key and algorithm is determined by [key_id] field and corresponding certificate.
+" href="" PORT="sig_size">len_sig</TD><TD title="DER encoded signature.
+Signature is computed over serialized fields [type , version , body , key_id].
+Signature key and algorithm is determined by [key_id] field and corresponding certificate.
+" href="" >bytes</TD><TD title="DER encoded signature.
+Signature is computed over serialized fields [type , version , body , key_id].
+Signature key and algorithm is determined by [key_id] field and corresponding certificate.
+" href="" PORT="sig_type">sig</TD></TR>
+			</TABLE>>,
+				pos="476.5,170",
+				width=2.8472];
+			signature__seq:len_sig_type -> signature__seq:sig_size	[color="#404040",
+				pos="e,413.46,157.14 571.54,177.1 621.61,196.05 606.28,223.5 492.5,223.5 386.28,223.5 365.86,185.87 404.36,162.01"];
+		}
+		subgraph cluster__name_body {
+			graph [bb="654,16,945,225",
+				label="NanoTrustedDesc::NameBody",
+				lheight=0.21,
+				lp="799.5,213.5",
+				lwidth=2.99,
+				style=dotted,
+				tooltip="A trusted name descriptor"
+			];
+			name_body__seq	[height=1.8611,
+				label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD title="Length of the name field" href="" PORT="len_name_pos">0</TD><TD title="Length of the name field" href="" PORT="len_name_size">1</TD><TD title="Length of the name field" href="" >u1</TD><TD title="Length of the name field" href="" PORT="len_name_type">len_name</TD></TR>
+				<TR><TD title="UTF-8 encoded truted name associated with this address" href="" PORT="name_pos">1</TD><TD title="UTF-8 encoded truted name associated with this address" href="" PORT="name_size">len_name</TD><TD title="UTF-8 encoded truted name associated with this address" href="" >bytes</TD><TD title="UTF-8 encoded truted name associated with this address" href="" PORT="name_type">name</TD></TR>
+				<TR><TD title="SLIP 44 coin type as in [https://github.com/ensdomains/address-encoder]" href="" PORT="coin_type_pos">...</TD><TD title="SLIP 44 coin type as in [https://github.com/ensdomains/address-encoder]" href="" PORT="coin_type_size">4</TD><TD title="SLIP 44 coin type as in [https://github.com/ensdomains/address-encoder]" href="" >bytes</TD><TD title="SLIP 44 coin type as in [https://github.com/ensdomains/address-encoder]" href="" PORT="coin_type_type">coin_type</TD></TR>
+				<TR><TD title="Length of the address field" href="" PORT="len_address_pos">...</TD><TD title="Length of the address field" href="" PORT="len_address_size">1</TD><TD title="Length of the address field" href="" >u1</TD><TD title="Length of the address field" href="" PORT="len_address_type">len_address</TD></TR>
+				<TR><TD title="Address value for this trusted name" href="" PORT="address_pos">...</TD><TD title="Address value for this trusted name" href="" PORT="address_size">len_address</TD><TD title="Address value for this trusted name" href="" >bytes</TD><TD title="Address value for this trusted name" href="" PORT="address_type">address</TD></TR>
+			</TABLE>>,
+				pos="799.5,91",
+				width=3.8194];
+			name_body__seq:len_name_type -> name_body__seq:name_size	[color="#404040",
+				pos="e,722.7,112.02 910.08,133.09 962.81,156.95 946.9,176 815.5,176 690.43,176 669.99,144.04 713.79,117"];
+			name_body__seq:len_address_type -> name_body__seq:address_size	[color="#404040",
+				pos="e,724.17,49.202 907.57,70.035 963.27,105.36 948.94,176 815.5,176 688.28,176 669.32,96.587 716.1,55.456"];
+		}
+		nano_trusted_desc__seq	[height=2.1528,
+			label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD title="Type of the descriptor" href="" PORT="type_pos">0</TD><TD title="Type of the descriptor" href="" PORT="type_size">1</TD><TD title="Type of the descriptor" href="" >u1→DescType</TD><TD title="Type of the descriptor" href="" PORT="type_type">type</TD></TR>
+			<TR><TD title="Version, currently fixed to 0x01" href="" PORT="version_pos">1</TD><TD title="Version, currently fixed to 0x01" href="" PORT="version_size">1</TD><TD title="Version, currently fixed to 0x01" href="" >bytes={0x01}</TD><TD title="Version, currently fixed to 0x01" href="" PORT="version_type">version</TD></TR>
+			<TR><TD title="A key identifier, unique to Ledger, indicating key used to sign this descriptor. 
+The corresponding certificate must be passed to the application before use.
+" href="" PORT="key_id_pos">2</TD><TD title="A key identifier, unique to Ledger, indicating key used to sign this descriptor. 
+The corresponding certificate must be passed to the application before use.
+" href="" PORT="key_id_size">1</TD><TD title="A key identifier, unique to Ledger, indicating key used to sign this descriptor. 
+The corresponding certificate must be passed to the application before use.
+" href="" >u1→KeyIdEnum</TD><TD title="A key identifier, unique to Ledger, indicating key used to sign this descriptor. 
+The corresponding certificate must be passed to the application before use.
+" href="" PORT="key_id_type">key_id</TD></TR>
+			<TR><TD title="An optional challenge to prove freshness of the descriptor" href="" PORT="challenge_pos">3</TD><TD title="An optional challenge to prove freshness of the descriptor" href="" PORT="challenge_size">...</TD><TD title="An optional challenge to prove freshness of the descriptor" href="" >Challenge</TD><TD title="An optional challenge to prove freshness of the descriptor" href="" PORT="challenge_type">challenge</TD></TR>
+			<TR><TD title="Body of the descriptor, based on type" href="" PORT="body_pos">...</TD><TD title="Body of the descriptor, based on type" href="" PORT="body_size">...</TD><TD title="Body of the descriptor, based on type" href="" >switch (type)</TD><TD title="Body of the descriptor, based on type" href="" PORT="body_type">body</TD></TR>
+			<TR><TD title="Signature of the descriptor computed over other fields" href="" PORT="sig_pos">...</TD><TD title="Signature of the descriptor computed over other fields" href="" PORT="sig_size">...</TD><TD title="Signature of the descriptor computed over other fields" href="" >Signature</TD><TD title="Signature of the descriptor computed over other fields" href="" PORT="sig_type">sig</TD></TR>
+		</TABLE>>,
+			pos="153.5,352",
+			width=3.8194];
+		nano_trusted_desc__seq:type_type -> nano_trusted_desc__seq:body_type	[color="#404040",
+			pos="e,267.4,320.04 222.97,404.07 166.96,430.31 174.8,447.5 246.5,447.5 315.74,447.5 325.43,368.58 275.55,326.25"];
+		nano_trusted_desc__seq_body_switch	[height=1.2778,
+			label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+	<TR><TD BGCOLOR="#F0F2E4">case</TD><TD BGCOLOR="#F0F2E4">type</TD></TR>
+	<TR><TD>:desc_type_plugin</TD><TD PORT="case0">PluginBody</TD></TR>
+	<TR><TD>:desc_type_nft</TD><TD PORT="case1">NftBody</TD></TR>
+	<TR><TD>:desc_type_name</TD><TD PORT="case2">NameBody</TD></TR>
+</TABLE>>,
+			pos="476.5,309",
+			width=3.2917];
+		nano_trusted_desc__seq:body_type -> nano_trusted_desc__seq_body_switch	[pos="e,357.82,309 284.5,309 304.97,309 326.67,309 347.82,309",
+			style=bold];
+		nano_trusted_desc__seq:challenge_type -> challenge__seq	[pos="e,326.68,374.44 284.5,330 305.23,330 300.66,351.58 318.35,368.17",
+			style=bold];
+		nano_trusted_desc__seq:sig_type -> signature__seq	[pos="e,373.88,181.82 284.5,288 322.41,288 290.06,234.49 319,210 332.06,198.95 347.79,190.89 364.17,185.03",
+			style=bold];
+		nano_trusted_desc__seq_body_switch:case1 -> nft_body__seq	[pos="e,678.84,298 588.5,298 614.44,298 642.19,298 668.73,298",
+			style=bold];
+		nano_trusted_desc__seq_body_switch:case0 -> plugin_body__seq	[pos="e,678.83,430.48 588.5,320 615.72,320 618.19,338.84 634,361 647.19,379.48 638.75,391.18 654,408 659.2,413.73 664.91,419.14 670.98,\
+424.22",
+			style=bold];
+		nano_trusted_desc__seq_body_switch:case2 -> name_body__seq	[pos="e,721.83,158.24 588.5,277 610.25,277 617.09,272.67 634,259 646.46,248.93 643.7,241.27 654,229 672.35,207.13 693.84,185.06 714.55,\
+165.18",
+			style=bold];
+	}
+}
